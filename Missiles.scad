@@ -25,11 +25,26 @@ module Head(diameter=10, length=10)
 	rotate_extrude() polygon(points=flatten(p));
 }
 
-module Missile(diameter=5.2, head=5, body=6.7)
+module Fins(n=4, size=4)
 {
-	mov(z=body+0.5) Head(diameter=diameter, length=head);
-	mov(z=2) cylinder(h=body, d=diameter-1);
-	cylinder(h=body, d=diameter);
+	p = [[0, 1], [size, 1], [size, size/2], [size/2, size], [0, size], [0, 1]];
+	echo(p);
+	for (i=[0:n]) rot(i*360/n) 
+		linear_extrude(height = 1, center = true) polygon(points=p, convexity = 1);
 }
 
-Missile();
+
+module Missile(diameter=5.2, head=5, body=6.7, fin_size=4, fin_n=4)
+{
+	mov(z=body+fin_size+1) Head(diameter=diameter, length=head);
+	mov(z=fin_size+2.5) cylinder(h=body, d=diameter-1);
+	mov(z=fin_size+0.5) cylinder(h=body, d=diameter);
+	difference()
+	{
+		cylinder(h=fin_size+2, d=3);
+		mov(z=-1) cylinder(h=fin_size+2, d=1);		
+	}
+	rot(y=-90) Fins(n=fin_n, size=fin_size);
+}
+
+Missile(fin_n=3);
