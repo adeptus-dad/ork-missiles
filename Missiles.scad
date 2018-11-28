@@ -39,6 +39,8 @@ module Missile(diameter=5.2, head=5, body=6.7, fin_size=4, fin_n=4)
 	mov(z=body+fin_size+1) Head(diameter=diameter, length=head);
 	mov(z=fin_size+2.5) cylinder(h=body, d=diameter-1);
 	mov(z=fin_size+0.5) cylinder(h=body, d=diameter);
+	mov(z=fin_size+0.5+1) for (a=[0:60:320]) rot(z=a) rot(x=90) cylinder(h=diameter/2+0.4, d=1, $fn=6);
+	mov(z=fin_size+body+0.5-1) for (a=[0:60:320]) rot(z=a) rot(x=90) cylinder(h=diameter/2+0.4, d=1, $fn=6);
 	difference()
 	{
 		cylinder(h=fin_size+2, d=3);
@@ -47,4 +49,4 @@ module Missile(diameter=5.2, head=5, body=6.7, fin_size=4, fin_n=4)
 	rot(y=-90) Fins(n=fin_n, size=fin_size);
 }
 
-Missile(fin_n=3);
+Missile(head=12, body=8, diameter=4, fin_n=4, fin_size=3);
