@@ -53,7 +53,7 @@ module Missile(diameter=5.2, head=5, body=6.7, fin_size=4, fin_n=4)
 		mov(z=fin_size+0.5) cylinder(h=body, d=diameter);
 		RivetsPos(n=round(diameter*1.5), body=body, fin_size=fin_size, invert=true) cylinder(h=diameter/2+0.4, d=0.6, $fn=10);
 	}
-	RivetsPos(n=round(diameter*1.5), body=body, fin_size=fin_size) cylinder(h=diameter/2+0.4, d=0.8, $fn=6);
+	RivetsPos(n=round(diameter*1.5), body=body, fin_size=fin_size) cylinder(h=diameter/2+0.3, d=0.8, $fn=6);
 	difference()
 	{
 		cylinder(h=fin_size+2, d=3);
@@ -65,12 +65,12 @@ module Missile(diameter=5.2, head=5, body=6.7, fin_size=4, fin_n=4)
 module RandomMissile(seed=1)
 {
 	d = rands(min_value=3.5, max_value=6.5, value_count=1, seed_value=seed+100)[0];
-	h = rands(min_value=d-1, max_value=d+4, value_count=1, seed_value=seed+101)[0];
-	b = rands(min_value=h, max_value=h+5, value_count=1, seed_value=seed+102)[0];
-	f = rands(min_value=d/2, max_value=d, value_count=1, seed_value=seed+102)[0];
+	h = rands(min_value=d-1, max_value=d+3, value_count=1, seed_value=seed+101)[0];
+	b = rands(min_value=h, max_value=h+4, value_count=1, seed_value=seed+102)[0];
+	f = rands(min_value=d/2, max_value=d-1, value_count=1, seed_value=seed+102)[0];
 	n = rands(min_value=3, max_value=4,   value_count=1, seed_value=seed+102)[0];
 	Missile(diameter=d, head=h, body=b, fin_size=f, fin_n=round(n));
 }
 
 Missile();
-for (a=[1:10]) mov(x=a*10) RandomMissile(seed=a+1152);
+for (a=[1:10]) mov(x=a*10) RandomMissile(seed=a+115);
