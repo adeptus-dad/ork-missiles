@@ -76,3 +76,6 @@ module RandomMissile(seed=1)
 
 Missile();
 for (a=[1:10]) mov(x=a*10) RandomMissile(seed=a+123135);
+
+for (a=[0:10]) translate([a*10, 2.5, -1]) cube([1,1,3], center=true); 
+translate([-0.5, 2, -2.5]) cube([101,1,1]);
